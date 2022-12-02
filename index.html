@@ -17,7 +17,10 @@
 
 <h1>Weather Map Project</h1>
 <!-- The HTML element that serves as the current OpenWeather container -->
-<div id="weather-current-display"><p class="card card-body d-flex"></p></div>
+<div id="weather-current-display"><p id="currentWx" class="card card-body d-flex"></p></div>
+<!-- The HTML element that displays marker/clicked address -->
+<div id="marker-location" class="d-flex"></div>
+<div id="clicked-location" class="d-flex"></div>
 
 <!-- The HTML element that serves as the 5-day OpenWeather container -->
 <div id="five-day-card" class="d-flex"></div>
@@ -25,12 +28,12 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
+
+
 
 <!-- The HTML element that serves as the Mapbox container -->
 <div id='map' class="d-flex"></div>
+<pre id="coordinates" class="coordinates"></pre>
 
 
 <!-- Bootstrap JS -->
