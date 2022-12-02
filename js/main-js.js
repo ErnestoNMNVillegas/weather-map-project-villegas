@@ -2,6 +2,8 @@
 
 $(function() {
 
+
+
 // MapBox Code
     //https://docs.mapbox.com/mapbox-gl-js/example/drag-a-marker/
     mapboxgl.accessToken = MAPBOX_KEY;
@@ -11,6 +13,8 @@ $(function() {
         zoom: 10,
         center: [-98.4916, 29.4260]
     });
+
+// Marker Code
 
     const marker = new mapboxgl.Marker({
         draggable: true
@@ -31,10 +35,40 @@ $(function() {
         });
     }
 
-
-
     marker.on('dragend', onDragEnd);
 
+    //This is the click function code.
+    // I used the following source for assistance: https://stackoverflow.com/questions/44430030/mapbox-allow-user-to-click-on-map-and-pin
+
+    map.on("click", function(e){
+        console.log("background click", e.lngLat);
+        getFiveDay(e.lngLat.lat, e.lngLat.lng);
+        reverseGeocode(e.lngLat, MAPBOX_KEY).then(function(results) {
+            let markerLocale = ''
+            markerLocale += '<P>' + 'Clicked Locatiion: ' + results + '</P>';
+            $('#clicked-location').html(markerLocale);
+        });
+    });
+
+    $('#user-search').click(function (e){
+        e.preventDefault();
+        let text = $("#user-search").val();
+        console.log(text);
+        geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
+            // function setMarker(results) {
+            //     marker.setLngLat([results]);
+            // }
+            getFiveDay(results);
+        })
+        console.log(results);
+    })
+
+    // geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
+    //     function setMarker(results) {
+    //         marker.setLngLat([results]);
+    //     }
+    //     console.log(results);
+    // })
 
 //Open Weather Map Code w/ Current Weather Code
 
@@ -68,20 +102,6 @@ $.get("http://api.openweathermap.org/data/2.5/weather", {
 
     //San Antonio 5 Day Forecast
     getFiveDay(29.4260, -98.4916);
-
-    //This is the drop pin function.
-    // I obtained this source from https://stackoverflow.com/questions/44430030/mapbox-allow-user-to-click-on-map-and-pin
-    //I then added the 5 day forecast GET.
-
-    map.on("click", function(e){
-        console.log("background click", e.lngLat);
-        getFiveDay(e.lngLat.lat, e.lngLat.lng);
-        reverseGeocode(e.lngLat, MAPBOX_KEY).then(function(results) {
-            let markerLocale = ''
-            markerLocale += '<P>' + 'Clicked Locatiion: ' + results + '</P>';
-            $('#clicked-location').html(markerLocale);
-        });
-    });
 
     //5-day forecast function.  I used information from the following post to figure this out:  https://javascript.plainenglish.io/display-7-day-weather-forecast-with-openweather-api-aac8ba21c9e3
     function getFiveDay(lat, lng){
