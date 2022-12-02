@@ -2,10 +2,8 @@
 
 $(function() {
 
-var weatherDataObj = {};
 
-
-//Open Weather Map Code
+//Open Weather Map Code w/ Current Weather Code
 
 $.get("http://api.openweathermap.org/data/2.5/weather", {
     APPID: OPEN_WEATHER_KEY,
@@ -16,7 +14,7 @@ $.get("http://api.openweathermap.org/data/2.5/weather", {
     // console.log(data);
     // console.log(weatherDataObj);
     // // return weatherDataObj;
-    $('#weather-fiveDay-display p').html(
+    $('#weather-current-display p').html(
         'Current Weather' + '<br>' +
         'Temperature : ' + 'High ' + data.main.temp_max + ' / ' + 'Low ' + data.main.temp_min + ' , ' +
         'Description : ' + data.weather[0].main + ' , ' +
@@ -53,54 +51,35 @@ $.get("http://api.openweathermap.org/data/2.5/weather", {
     center: [-98.4916, 29.4252]
     });
 
+    //San Antonio 5 Day Forecast
+
     let lat = 29.423017;
     let long = -98.48527;
-    $.get("http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ long +"&appid=" + OPEN_WEATHER_KEY + "&units=metric").done(function(data) {
+    $.get("http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ long +"&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function(data) {
         var reports = data.list;
         for(let i = 0; i < reports.length; i += 8) {
-            // should get 5 objects back
+            let weatherCards = '';
+            // reports.forEach((value, index) => {
+                // if (index < 5) {
+                    // var date = new Date(value.dt * 1000).toLocaleDateString("en", {
+                    //     weekday: "long",
+                    // });
+                    var icon = reports[i].weather[0].icon;
+                    weatherCards += '<div class="card d-flex fiveDay" style="width: 18rem;">' +
+                        '<div class="card-header">' + 'Day ' + reports[i].dt_txt + '</div>' +
+                        '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item">' + 'Temp (High/Low): ' + reports[i].main.temp_max + ' / '+ reports[i].main.temp_min + '</li>' +
+                        '<li class="list-group-item">' + 'Description: ' + reports[i].weather[0].main + ' / ' + reports[i].weather[0].description +  '</li>' +
+                        '<li class="list-group-item">' + 'Humidity: ' + reports[i].main.humidity + '</li>' +
+                        '<li class="list-group-item">' + 'Pressure: ' + reports[i].main.pressure + '</li>' +
+                        '<li class="list-group-item">' + icon + '</li>' +
+                        '</ul>' +
+                        '</div>'
+                    $('#five-day-card').append(weatherCards);
+                // }
+            // });
             console.log(reports[i]);
         }
-
-        // reports.forEach((item) => {
-        //     $('#card-container').html('<div class="card d-flex fiveDay" style="width: 18rem;">' +
-        //     '<div class="card-header">' + 'Day ' + item.dt_txt + '</div>' +
-        //     '<ul class="list-group list-group-flush">' +
-        //     '<li class="list-group-item">' + 'Temp (High/Low): ' + item.main.temp_max + ' / '+ item.main.temp_min + '</li>' +
-        //     '<li class="list-group-item">' + 'Description: ' + item.weather[0].main + ' / ' + item.weather[0].description +  '</li>' +
-        //     '<li class="list-group-item">' + 'Humidity: ' + item.main.humidity + '</li>' +
-        //     '<li class="list-group-item">' + 'Pressure: ' + item.main.pressure + '</li>' +
-        //     '<li class="list-group-item">' + 'A third item' + '</li>' +
-        //     '</ul>' +
-        //     '</div>'
-        //     )
-        // });
-
-
-        let weatherCards = '';
-        reports.forEach((value, index) => {
-            for (let i = 0; i <= reports.length; i += 8) {
-                // var date = new Date(value.dt * 1000).toLocaleDateString("en", {
-                //     weekday: "long",
-                // });
-                var icon = value.weather[0].icon;
-                weatherCards += '<div class="card d-flex fiveDay" style="width: 18rem;">' +
-                    '<div class="card-header">' + 'Day ' + value.dt_txt + '</div>' +
-                    '<ul class="list-group list-group-flush">' +
-                    '<li class="list-group-item">' + 'Temp (High/Low): ' + value.main.temp_max + ' / '+ value.main.temp_min + '</li>' +
-                    '<li class="list-group-item">' + 'Description: ' + value.weather[0].main + ' / ' + value.weather[0].description +  '</li>' +
-                    '<li class="list-group-item">' + 'Humidity: ' + value.main.humidity + '</li>' +
-                    '<li class="list-group-item">' + 'Pressure: ' + value.main.pressure + '</li>' +
-                    '<li class="list-group-item">' + icon + '</li>' +
-                    '</ul>' +
-                    '</div>'
-
-                $('#card-container').html(weatherCards);
-
-
-            }
-        });
-
     });
 
 
@@ -130,14 +109,32 @@ $.get("http://api.openweathermap.org/data/2.5/weather", {
                 "circle-radius": 5
             }
         });
-        $.get("http://api.openweathermap.org/data/2.5/forecast?lat="+ e.lngLat.lat +"&lon="+ e.lngLat.lng +"&appid=" + OPEN_WEATHER_KEY + "&units=metric").done(function(data) {
-            let reports = data.list;
+
+        getFiveDay(e.lngLat.lat, e.lngLat.lng);
+    });
+
+
+
+    function getFiveDay(lat, lng){
+        $.get("http://api.openweathermap.org/data/2.5/forecast?lat="+ lat +"&lon="+ lng +"&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function(data) {
+            var reports = data.list;
             for(let i = 0; i < reports.length; i += 8) {
-                // should get 5 objects back
-                console.log(reports[i]);
+                let weatherCards = '';
+                var icon = reports[i].weather[0].icon;
+                weatherCards += '<div class="card d-flex fiveDay" style="width: 18rem;">' +
+                    '<div class="card-header">' + 'Day ' + reports[i].dt_txt + '</div>' +
+                    '<ul class="list-group list-group-flush">' +
+                    '<li class="list-group-item">' + 'Temp (High/Low): ' + reports[i].main.temp_max + ' / '+ reports[i].main.temp_min + '</li>' +
+                    '<li class="list-group-item">' + 'Description: ' + reports[i].weather[0].main + ' / ' + reports[i].weather[0].description +  '</li>' +
+                    '<li class="list-group-item">' + 'Humidity: ' + reports[i].main.humidity + '</li>' +
+                    '<li class="list-group-item">' + 'Pressure: ' + reports[i].main.pressure + '</li>' +
+                    '<li class="list-group-item">' + icon + '</li>' +
+                    '</ul>' +
+                    '</div>'
+                $('#five-day-card').append(weatherCards);
             }
         });
-    });
+    };
 
 
 

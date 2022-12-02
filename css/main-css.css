@@ -4,10 +4,6 @@
     height: 500px;
 }
 
-.fiveDay {
-    max-height: 200px;
-}
-
 #card-container {
-    max-height: 200px;
+    height: 320px;
 }
