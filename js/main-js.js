@@ -50,17 +50,18 @@ $(function() {
         });
     });
 
-    $('#user-search').click(function (e){
+    $('#user-search-btn').click(function (e){
         e.preventDefault();
+        console.log("click detected");
         let text = $("#user-search").val();
         console.log(text);
-        geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
-            // function setMarker(results) {
-            //     marker.setLngLat([results]);
-            // }
-            getFiveDay(results);
-        })
-        console.log(results);
+        // geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
+        //     // function setMarker(results) {
+        //     //     marker.setLngLat([results]);
+        //     // }
+        //     getFiveDay(results);
+        // })
+        // console.log(results);
     })
 
     // geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
