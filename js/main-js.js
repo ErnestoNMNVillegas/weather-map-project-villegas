@@ -14,9 +14,16 @@ $(function() {
         center: [-98.4916, 29.4260]
     });
 
+    // map.addControl(
+    //     new MapboxGeocoder({
+    //         accessToken: mapboxgl.accessToken,
+    //         mapboxgl: mapboxgl
+    //     })
+    // );
+
 // Marker Code
 
-    const marker = new mapboxgl.Marker({
+    var marker = new mapboxgl.Marker({
         draggable: true
     })
         .setLngLat([-98.4916, 29.4260])
@@ -55,13 +62,14 @@ $(function() {
         console.log("click detected");
         let text = $("#user-search").val();
         console.log(text);
-        // geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
-        //     // function setMarker(results) {
-        //     //     marker.setLngLat([results]);
-        //     // }
-        //     getFiveDay(results);
-        // })
-        // console.log(results);
+        geocode(text, MAPBOX_KEY).then(function(results) {
+                console.log(results);
+            getFiveDay(results[1], results[0]);
+            function setMarker(results) {
+                marker.setLngLat([results[1], results[0]]);
+                return marker;
+            }
+        })
     })
 
     // geocode("15513 Dell Lane, Selma, Texas 78154", MAPBOX_KEY).then(function(results) {
