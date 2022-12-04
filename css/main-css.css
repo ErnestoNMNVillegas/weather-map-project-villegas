@@ -1,3 +1,11 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    color: white;
+}
+
 #map {
     /* the width and height may be set to any size */
     width: 100%;
@@ -22,15 +30,17 @@
     display: none;
 }
 
-#currentWx {
-    padding-top: 0;
-    padding-bottom: 0;
-    font-size: smaller;
-}
+/*#currentWx {*/
+/*    padding-top: 0;*/
+/*    padding-bottom: 0;*/
+/*    font-size: smaller;*/
+/*}*/
 
 #five-day-card {
     font-size: x-small;
     font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 0;
 }
 
 #geocoder-container > div {

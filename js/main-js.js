@@ -162,12 +162,12 @@ $.get("http://api.openweathermap.org/data/2.5/weather", {
     q:     "San Antonio, US",
     units: "imperial"
 }).done(function(data) {
-    $('#weather-current-display p').html(
-        'Current Weather:  San Antonio, TX' + '<br>' +
-        'Temperature : ' + 'High ' + data.main.temp_max + ' / ' + 'Low ' + data.main.temp_min + ' , ' +
+    $('#five-day-forecast-location').html(
+        '<h3> Current Weather:  San Antonio, TX </h3>' + '<br>' +
+        '<h3> Temperature : ' + 'High ' + data.main.temp_max + ' / ' + 'Low ' + data.main.temp_min + ' , ' +
         'Description : ' + data.weather[0].main + ' , ' +
         'Humidity : ' + data.main.humidity + ' , ' +
-        'Pressure : ' + data.main.pressure + '.'
+        'Pressure : ' + data.main.pressure + '. </h3>'
     );
 });
 

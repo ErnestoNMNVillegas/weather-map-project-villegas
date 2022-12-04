@@ -9,15 +9,17 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Mapbox CSS -->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'/>
-<!--    This search works but does not link to my functions-->
+    <!--    This search works but does not link to my functions-->
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <!-- Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/main-css.css" rel="stylesheet">
 
 </head>
 <body>
 
-<h1>Weather Map Project</h1>
+<h1 class="d-flex navbar navbar-light bg-primary justify-content-center">Weather Map Project</h1>
 
 <!--<div class="input-group mb-3">-->
 <!--    <input id='user-search' type="text" class="form-control" placeholder="Enter Search Address" aria-label="user-search" aria-describedby="user-search">-->
@@ -25,12 +27,12 @@
 <!--</div>-->
 
 <!-- The HTML element that serves as the current OpenWeather container -->
-<div id="weather-current-display"><p id="currentWx" class="card card-body d-flex"></p></div>
+<!--<div class='d-flex' id="weather-current-display"><p id="currentWx" class="card card-body d-flex"></p></div>-->
 
 <!-- The HTML element/container that displays marker/clicked address -->
 <!--<div id="marker-location" class="d-flex"></div>-->
 <!--<div id="clicked-location" class="d-flex"></div>-->
-<div id="five-day-forecast-location" class="d-flex"></div>
+<div id="five-day-forecast-location" class="d-flex card card-body justify-content-center"></div>
 
 <!-- The HTML element that serves as the 5-day OpenWeather container -->
 <div id="five-day-card" class="d-flex"></div>
