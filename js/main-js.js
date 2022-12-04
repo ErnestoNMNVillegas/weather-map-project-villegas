@@ -14,35 +14,111 @@ $(function() {
         center: [-98.4916, 29.4260]
     });
 
-    // map.addControl(
-    //     new MapboxGeocoder({
-    //         accessToken: mapboxgl.accessToken,
-    //         mapboxgl: mapboxgl
-    //     })
-    // );
-
 // Marker Code
 
-    var marker = new mapboxgl.Marker({
-        draggable: true
-    })
+    // var marker = new mapboxgl.Marker({
+    //     draggable: true
+    // })
+    //     .setLngLat([-98.4916, 29.4260])
+    //     .addTo(map);
+
+
+
+
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        marker: {
+            color: 'orange'
+        },
+        mapboxgl: mapboxgl
+    });
+
+    map.addControl(geocoder);
+
+    var marker = new mapboxgl
+        .Marker({ draggable: true, color: "pink" })
         .setLngLat([-98.4916, 29.4260])
-        .addTo(map);
+        .addTo(map)
+    marker.on('dragend', onDragEnd);
+
 
     function onDragEnd() {
-        const lngLat = marker.getLngLat();
+        var lngLat = marker.getLngLat();
         coordinates.style.display = 'block';
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
         getFiveDay(lngLat.lat, lngLat.lng);
         console.log(lngLat);
         reverseGeocode(lngLat, MAPBOX_KEY).then(function(results) {
             let markerLocale = ''
-            markerLocale += '<P>' + 'Marker Locatiion: ' + results + '</P>';
-            $('#marker-location').html(markerLocale);
+            markerLocale += '<h3>' + '5-Day Forcast Location: ' + results + '</h3>';
+            $('#five-day-forecast-location').html(markerLocale);
         });
     }
 
-    marker.on('dragend', onDragEnd);
+
+    geocoder.on('result', function(e) {
+        console.log(e.result.center);
+        geocoder.clear();
+        // var marker = new mapboxgl
+        //     .Marker({ draggable: true, color: "pink" })
+        //     .setLngLat(e.result.center)
+        //     .addTo(map)
+        //      marker.on('dragend', onDragEnd);
+
+        getFiveDay(e.result.center[1], e.result.center[0]);
+        //
+        // function onDragEnd() {
+        //     var lngLat = marker.getLngLat();
+        //     coordinates.style.display = 'block';
+        //     coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        //     getFiveDay(lngLat.lat, lngLat.lng);
+        //     console.log(lngLat);
+        //     reverseGeocode(lngLat, MAPBOX_KEY).then(function(results) {
+        //         let markerLocale = ''
+        //         markerLocale += '<P>' + 'Marker Locatiion: ' + results + '</P>';
+        //         $('#marker-location').html(markerLocale);
+        //     });
+        // }
+
+
+        let resultObj = {
+            lat: '',
+            lng: ''
+        }
+
+        resultObj.lat = e.result.center[1];
+        resultObj.lng = e.result.center[0];
+
+        console.log(resultObj);
+
+
+        reverseGeocode(resultObj, MAPBOX_KEY).then(function(results) {
+            let markerLocale = ''
+            markerLocale += '<h3>' + '5-Day Forecast Location: ' + results + '</h3>';
+            $('#five-day-forecast-location').html(markerLocale);
+        });
+
+        return marker.setLngLat(e.result.center)
+
+    });
+
+    //Geocode source info https://stackoverflow.com/questions/62411816/add-a-dragable-marker-after-geocoder-result-in-mapbox-gl-js
+
+    // function onDragEnd() {
+    //     const lngLat = marker.getLngLat();
+    //     coordinates.style.display = 'block';
+    //     coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+    //     getFiveDay(lngLat.lat, lngLat.lng);
+    //     console.log(lngLat);
+    //     reverseGeocode(lngLat, MAPBOX_KEY).then(function(results) {
+    //         let markerLocale = ''
+    //         markerLocale += '<P>' + 'Marker Locatiion: ' + results + '</P>';
+    //         $('#marker-location').html(markerLocale);
+    //     });
+    // }
+
+
+
 
     //This is the click function code.
     // I used the following source for assistance: https://stackoverflow.com/questions/44430030/mapbox-allow-user-to-click-on-map-and-pin
@@ -52,8 +128,8 @@ $(function() {
         getFiveDay(e.lngLat.lat, e.lngLat.lng);
         reverseGeocode(e.lngLat, MAPBOX_KEY).then(function(results) {
             let markerLocale = ''
-            markerLocale += '<P>' + 'Clicked Locatiion: ' + results + '</P>';
-            $('#clicked-location').html(markerLocale);
+            markerLocale += '<h3>' + '5-Day Forecast Location: ' + results + '</h3>';
+            $('#five-day-forecast-location').html(markerLocale);
         });
     });
 

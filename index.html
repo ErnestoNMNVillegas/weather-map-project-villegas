@@ -10,7 +10,7 @@
     <!-- Mapbox CSS -->
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'/>
 <!--    This search works but does not link to my functions-->
-<!--    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">-->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <!-- Custom CSS -->
     <link href="css/main-css.css" rel="stylesheet">
 
@@ -19,17 +19,18 @@
 
 <h1>Weather Map Project</h1>
 
-<div class="input-group mb-3">
-    <input id='user-search' type="text" class="form-control" placeholder="Enter Search Address" aria-label="user-search" aria-describedby="user-search">
-    <button class="btn btn-outline-secondary" type="button" id="user-search-btn">Submit</button>
-</div>
+<!--<div class="input-group mb-3">-->
+<!--    <input id='user-search' type="text" class="form-control" placeholder="Enter Search Address" aria-label="user-search" aria-describedby="user-search">-->
+<!--    <button class="btn btn-outline-secondary" type="button" id="user-search-btn">Submit</button>-->
+<!--</div>-->
 
 <!-- The HTML element that serves as the current OpenWeather container -->
 <div id="weather-current-display"><p id="currentWx" class="card card-body d-flex"></p></div>
 
 <!-- The HTML element/container that displays marker/clicked address -->
-<div id="marker-location" class="d-flex"></div>
-<div id="clicked-location" class="d-flex"></div>
+<!--<div id="marker-location" class="d-flex"></div>-->
+<!--<div id="clicked-location" class="d-flex"></div>-->
+<div id="five-day-forecast-location" class="d-flex"></div>
 
 <!-- The HTML element that serves as the 5-day OpenWeather container -->
 <div id="five-day-card" class="d-flex"></div>
@@ -57,7 +58,7 @@
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 
 <!-- DOES not work with my functions.  Load the `mapbox-gl-geocoder` plugin. -->
-<!--<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>-->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 
 <!-- Geocode Utilities JS -->
 <script src="js/mapbox-geocoder-utils.js"></script>

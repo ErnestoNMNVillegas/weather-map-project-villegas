@@ -32,3 +32,8 @@
     font-size: x-small;
     font-weight: bold;
 }
+
+#geocoder-container > div {
+    min-width: 50%;
+    margin-left: 25%;
+}
