@@ -70,6 +70,7 @@ $(function () {
     map.on("click", function (e) {
         getFiveDay(e.lngLat.lat, e.lngLat.lng);
         marker.setLngLat(e.lngLat);
+        coordinates.innerHTML = `Longitude: ${e.lngLat.lng}<br />Latitude: ${e.lngLat.lat}`;
         airQuality(e.lngLat.lat, e.lngLat.lng);
         reverseGeocode(e.lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
@@ -80,9 +81,7 @@ $(function () {
 
     // $('#user-search-btn').click(function (e) {
     //     e.preventDefault();
-    //     console.log("click detected");
     //     let text = $("#user-search").val();
-    //     console.log(text);
     //     //// Re-centers marker ////
     //     geocode(text, MAPBOX_KEY).then(function (results) {
     //         console.log(results);
@@ -93,6 +92,7 @@ $(function () {
     //         }
     //         resultObj.lat = results[1];
     //         resultObj.lng = results[0];
+    //         airQuality(resultObj.lat, resultObj.lng)
     //         return marker.setLngLat(resultObj);
     //     })
     //     //// Re-centers Map ////
@@ -102,7 +102,7 @@ $(function () {
     //         return map.setCenter(results);
     //     })
     //     let markerLocale = ''
-    //     markerLocale += '<h3>' + '5-Day Forcast Location: ' + text + '</h3>';
+    //     markerLocale += '<h3>' + '5-Day Forecast Location: ' + text + '</h3>';
     //     $('#five-day-forecast-location').html(markerLocale);
     // })
 
@@ -123,24 +123,21 @@ $(function () {
     });
 
     //// Open Weather Pollution Data - Current
-    //// http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API key}
     function airQuality (lat, lng){
         $.get("http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function (data) {
             var airQualreport = data.list;
-            console.log(data.list);
             var airQual = airQualreport[0].main.aqi
-            console.log(airQual);
             var airQaulData = airQualreport[0].components.no2 + ',  --  Particulate Matter (PM10): ' + airQualreport[0].components.pm10 + ',  --  Ozone: ' + airQualreport[0].components.o3 + ',  --   Particulate Matter (PM2.5): ' + airQualreport[0].components.pm2_5
             if (airQual === 1){
-                $('#air-qual').html( 'Air Quality Index:  Good,  --  Nitrogen Dioxide: ' + airQaulData)
+                $('#air-qual').html( 'Air Quality Index:  GOOD,  --  Nitrogen Dioxide: ' + airQaulData)
             } else if (airQual === 2){
-                $('#air-qual').html( 'Air Quality Index:  Fair,  --  Nitrogen Dioxide: ' + airQaulData)
+                $('#air-qual').html( 'Air Quality Index:  FAIR,  --  Nitrogen Dioxide: ' + airQaulData)
             } else if (airQual === 3){
-                $('#air-qual').html( 'Air Quality Index:  Moderate,  --  Nitrogen Dioxide: ' + airQaulData)
+                $('#air-qual').html( 'Air Quality Index:  MODERATE,  --  Nitrogen Dioxide: ' + airQaulData)
             } else if (airQual === 4){
-                $('#air-qual').html( 'Air Quality Index:  Poor,  --  Nitrogen Dioxide: ' + airQaulData)
+                $('#air-qual').html( 'Air Quality Index:  POOR,  --  Nitrogen Dioxide: ' + airQaulData)
             } else if (airQual === 5){
-                $('#air-qual').html( 'Air Quality Index:  Very Poor,  --  Nitrogen Dioxide: ' + airQaulData)
+                $('#air-qual').html( 'Air Quality Index:  VERY POOR,  --  Nitrogen Dioxide: ' + airQaulData)
             }
         });
     }
