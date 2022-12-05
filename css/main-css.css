@@ -1,5 +1,5 @@
 * {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -44,4 +44,16 @@ h1 {
 
 #user-search {
     max-width: 30%;
+    border: #316CF4 solid 2px;
+}
+
+#five-day-forecast-location {
+    border: #316CF4 solid 2px;
+}
+
+#air-qual {
+    font-size: x-small;
+    justify-content: left;
+    font-weight: bold;
+    margin-top: 4px;
 }

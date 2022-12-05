@@ -27,6 +27,7 @@ $(function () {
         coordinates.style.display = 'block';
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
         getFiveDay(lngLat.lat, lngLat.lng);
+        airQuality(lngLat.lat, lngLat.lng)
         reverseGeocode(lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
             markerLocale += '<h4>' + '5-Day Forcast Location: ' + results + '</h4>';
@@ -45,15 +46,16 @@ $(function () {
     map.addControl(geocoder);
 
     geocoder.on('result', function (e) {
-        console.log(e.result.center);
         geocoder.clear();
         getFiveDay(e.result.center[1], e.result.center[0]);
+        coordinates.innerHTML = `Longitude: ${e.result.center[1]}<br />Latitude: ${e.result.center[0]}`;
         let resultObj = {
             lat: '',
             lng: ''
         }
         resultObj.lat = e.result.center[1];
         resultObj.lng = e.result.center[0];
+        airQuality(e.result.center[1], e.result.center[0])
         reverseGeocode(resultObj, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
             markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
@@ -67,9 +69,11 @@ $(function () {
 
     map.on("click", function (e) {
         getFiveDay(e.lngLat.lat, e.lngLat.lng);
+        marker.setLngLat(e.lngLat);
+        airQuality(e.lngLat.lat, e.lngLat.lng);
         reverseGeocode(e.lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
+            markerLocale += '<h4>' + '5-Day Forcast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
     });
@@ -117,6 +121,32 @@ $(function () {
             'Pressure : ' + data.main.pressure + '. </h4>'
         );
     });
+
+    //// Open Weather Pollution Data - Current
+    //// http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API key}
+    function airQuality (lat, lng){
+        $.get("http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function (data) {
+            var airQualreport = data.list;
+            console.log(data.list);
+            var airQual = airQualreport[0].main.aqi
+            console.log(airQual);
+            var airQaulData = airQualreport[0].components.no2 + ',  --  Particulate Matter (PM10): ' + airQualreport[0].components.pm10 + ',  --  Ozone: ' + airQualreport[0].components.o3 + ',  --   Particulate Matter (PM2.5): ' + airQualreport[0].components.pm2_5
+            if (airQual === 1){
+                $('#air-qual').html( 'Air Quality Index:  Good,  --  Nitrogen Dioxide: ' + airQaulData)
+            } else if (airQual === 2){
+                $('#air-qual').html( 'Air Quality Index:  Fair,  --  Nitrogen Dioxide: ' + airQaulData)
+            } else if (airQual === 3){
+                $('#air-qual').html( 'Air Quality Index:  Moderate,  --  Nitrogen Dioxide: ' + airQaulData)
+            } else if (airQual === 4){
+                $('#air-qual').html( 'Air Quality Index:  Poor,  --  Nitrogen Dioxide: ' + airQaulData)
+            } else if (airQual === 5){
+                $('#air-qual').html( 'Air Quality Index:  Very Poor,  --  Nitrogen Dioxide: ' + airQaulData)
+            }
+        });
+    }
+
+    airQuality(29.4260, -98.4916);
+
 
 //// San Antonio 5 Day Forecast Code ////
     getFiveDay(29.4260, -98.4916);
