@@ -30,7 +30,7 @@ $(function () {
         airQuality(lngLat.lat, lngLat.lng)
         reverseGeocode(lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h4>' + '5-Day Forcast Location: ' + results + '</h4>';
+            markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
     }
@@ -73,7 +73,7 @@ $(function () {
         airQuality(e.lngLat.lat, e.lngLat.lng);
         reverseGeocode(e.lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h4>' + '5-Day Forcast Location: ' + results + '</h4>';
+            markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
     });
