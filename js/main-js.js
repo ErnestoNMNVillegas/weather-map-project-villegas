@@ -29,7 +29,7 @@ $(function () {
         getFiveDay(lngLat.lat, lngLat.lng);
         reverseGeocode(lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h3>' + '5-Day Forcast Location: ' + results + '</h3>';
+            markerLocale += '<h4>' + '5-Day Forcast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
     }
@@ -56,7 +56,7 @@ $(function () {
         resultObj.lng = e.result.center[0];
         reverseGeocode(resultObj, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h3>' + '5-Day Forecast Location: ' + results + '</h3>';
+            markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
         return marker.setLngLat(e.result.center)
@@ -69,7 +69,7 @@ $(function () {
         getFiveDay(e.lngLat.lat, e.lngLat.lng);
         reverseGeocode(e.lngLat, MAPBOX_KEY).then(function (results) {
             let markerLocale = ''
-            markerLocale += '<h3>' + '5-Day Forecast Location: ' + results + '</h3>';
+            markerLocale += '<h4>' + '5-Day Forecast Location: ' + results + '</h4>';
             $('#five-day-forecast-location').html(markerLocale);
         });
     });
@@ -110,27 +110,13 @@ $(function () {
         units: "imperial"
     }).done(function (data) {
         $('#five-day-forecast-location').html(
-            '<h3> Current Weather:  San Antonio, TX </h3>' + '<br>' +
-            '<h3> Temperature : ' + 'High ' + data.main.temp_max + ' / ' + 'Low ' + data.main.temp_min + ' , ' +
+            '<h4> Current Weather:  San Antonio, TX </h4>' + '<br>' +
+            '<h4> Temperature : ' + 'High ' + data.main.temp_max + ' / ' + 'Low ' + data.main.temp_min + ' , ' +
             'Description : ' + data.weather[0].main + ' , ' +
             'Humidity : ' + data.main.humidity + ' , ' +
-            'Pressure : ' + data.main.pressure + '. </h3>'
+            'Pressure : ' + data.main.pressure + '. </h4>'
         );
     });
-
-    //One call below not working
-
-// $.get("http://api.openweathermap.org/data/2.5/onecall", {
-//     APPID: OPEN_WEATHER_KEY,
-//     lat:    29.423017,
-//     lon:   -98.48527,
-//     units: "imperial"
-// }).done(function(data) {
-//     console.log('The entire response:', data);
-//     console.log('Diving in - here is current information: ', data.current);
-//     console.log('A step further - information for tomorrow: ', data.daily[1]);
-//     console.log(weatherData);
-// });
 
 //// San Antonio 5 Day Forecast Code ////
     getFiveDay(29.4260, -98.4916);
@@ -148,13 +134,12 @@ $(function () {
                 var date = new Date(reports[i].dt_txt).toLocaleDateString('en-US');
                 var formatDate = date.split('/').join('-');
                 weatherCards += '<div class="card d-flex fiveDay" style="width: 18rem;">' +
-                    '<div class="card-header">' + 'Day: ' + formatDate + '</div>' +
+                    '<div class="card-header">' + 'Day: ' + formatDate + '<span><img src="http://openweathermap.org/img/w/' + icon + '.png"' + ' alt="img"' + '></span>' +'</div>' +
                     '<ul class="list-group list-group-flush">' +
                     '<li class="list-group-item">' + 'Temp (High/Low): ' + reports[i].main.temp_max + ' / ' + reports[i].main.temp_min + '</li>' +
                     '<li class="list-group-item">' + 'Description: ' + reports[i].weather[0].main + ' / ' + reports[i].weather[0].description + '</li>' +
                     '<li class="list-group-item">' + 'Humidity: ' + reports[i].main.humidity + '</li>' +
                     '<li class="list-group-item">' + 'Pressure: ' + reports[i].main.pressure + '</li>' +
-                    '<li class="list-group-item">' + '<img src="http://openweathermap.org/img/w/' + icon + '.png"' + ' alt="img"' + '>' + '</li>' +
                     '</ul>' +
                     '</div>'
                 // console.log(reports[i]);
