@@ -19,28 +19,24 @@
 </head>
 <body>
 
-<h1 class="d-flex navbar navbar-light bg-primary justify-content-center">Weather Map Project</h1>
+    <h1 class="d-flex navbar navbar-light bg-primary justify-content-center">Weather Map Project</h1>
 
-<!--<div class="input-group mb-3">-->
-<!--    <input id='user-search' type="text" class="form-control" placeholder="Enter Search Address" aria-label="user-search" aria-describedby="user-search">-->
-<!--    <button class="btn btn-outline-secondary" type="button" id="user-search-btn">Submit</button>-->
-<!--</div>-->
+<div class="input-group mb-3 d-flex justify-content-center">
+    <input id='user-search' type="text" class="form-control" placeholder="Enter Search Address" aria-label="user-search" aria-describedby="user-search">
+    <button class="btn btn-outline-secondary" type="button" id="user-search-btn">Submit</button>
+</div>
 
-<!-- The HTML element that serves as the current OpenWeather container -->
-<!--<div class='d-flex' id="weather-current-display"><p id="currentWx" class="card card-body d-flex"></p></div>-->
+    <!-- The HTML element/container that displays marker/clicked address + Current Weather -->
+    <div id="five-day-forecast-location" class="d-flex card card-body justify-content-center"></div>
 
-<!-- The HTML element/container that displays marker/clicked address + Current Weather -->
-<div id="five-day-forecast-location" class="d-flex card card-body justify-content-center"></div>
+    <!-- The HTML element that serves as the 5-day OpenWeather container -->
+    <div id="five-day-card" class="d-flex"></div>
 
-<!-- The HTML element that serves as the 5-day OpenWeather container -->
-<div id="five-day-card" class="d-flex"></div>
+        <br>
 
-<br>
-
-<!-- The HTML element that serves as the Mapbox container -->
-<div id='map' class="d-flex"></div>
-<pre id="coordinates" class="coordinates"></pre>
-
+    <!-- The HTML element that serves as the Mapbox container -->
+    <div id='map' class="d-flex"></div>
+        <pre id="coordinates" class="coordinates"></pre>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

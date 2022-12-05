@@ -30,12 +30,6 @@ h1 {
     display: none;
 }
 
-/*#currentWx {*/
-/*    padding-top: 0;*/
-/*    padding-bottom: 0;*/
-/*    font-size: smaller;*/
-/*}*/
-
 #five-day-card {
     font-size: x-small;
     font-weight: bold;
@@ -46,4 +40,8 @@ h1 {
 #geocoder-container > div {
     min-width: 50%;
     margin-left: 25%;
+}
+
+#user-search {
+    max-width: 30%;
 }
