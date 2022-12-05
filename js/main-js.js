@@ -20,9 +20,9 @@ $(function () {
         .setLngLat([-98.4916, 29.4260])
         .addTo(map)
 
-    marker.on('dragend', onDragEnd);
+    marker.on('dragend', dragEnd);
 
-    function onDragEnd() {
+    function dragEnd() {
         var lngLat = marker.getLngLat();
         coordinates.style.display = 'block';
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
@@ -74,33 +74,33 @@ $(function () {
         });
     });
 
-    $('#user-search-btn').click(function (e) {
-        e.preventDefault();
-        console.log("click detected");
-        let text = $("#user-search").val();
-        console.log(text);
-        //// Re-centers marker ////
-        geocode(text, MAPBOX_KEY).then(function (results) {
-            console.log(results);
-            getFiveDay(results[1], results[0]);
-            let resultObj = {
-                lat: '',
-                lng: ''
-            }
-            resultObj.lat = results[1];
-            resultObj.lng = results[0];
-            return marker.setLngLat(resultObj);
-        })
-        //// Re-centers Map ////
-        geocode(text, MAPBOX_KEY).then(function (results) {
-            console.log(results);
-            getFiveDay(results[1], results[0]);
-            return map.setCenter(results);
-        })
-        let markerLocale = ''
-        markerLocale += '<h3>' + '5-Day Forcast Location: ' + text + '</h3>';
-        $('#five-day-forecast-location').html(markerLocale);
-    })
+    // $('#user-search-btn').click(function (e) {
+    //     e.preventDefault();
+    //     console.log("click detected");
+    //     let text = $("#user-search").val();
+    //     console.log(text);
+    //     //// Re-centers marker ////
+    //     geocode(text, MAPBOX_KEY).then(function (results) {
+    //         console.log(results);
+    //         getFiveDay(results[1], results[0]);
+    //         let resultObj = {
+    //             lat: '',
+    //             lng: ''
+    //         }
+    //         resultObj.lat = results[1];
+    //         resultObj.lng = results[0];
+    //         return marker.setLngLat(resultObj);
+    //     })
+    //     //// Re-centers Map ////
+    //     geocode(text, MAPBOX_KEY).then(function (results) {
+    //         console.log(results);
+    //         getFiveDay(results[1], results[0]);
+    //         return map.setCenter(results);
+    //     })
+    //     let markerLocale = ''
+    //     markerLocale += '<h3>' + '5-Day Forcast Location: ' + text + '</h3>';
+    //     $('#five-day-forecast-location').html(markerLocale);
+    // })
 
 //// Open Weather Map Code w/ Current Weather Code ////
 
@@ -145,8 +145,6 @@ $(function () {
             let weatherCards = '';
             for (let i = 0; i < reports.length; i += 8) {
                 var icon = reports[i].weather[0].icon;
-                var iconurl = "https://openweathermap.org/img/w/" + icon + ".png";
-                $('#wxicon').attr('src', iconurl);
                 var date = new Date(reports[i].dt_txt).toLocaleDateString('en-US');
                 var formatDate = date.split('/').join('-');
                 weatherCards += '<div class="card d-flex fiveDay" style="width: 18rem;">' +
@@ -156,7 +154,7 @@ $(function () {
                     '<li class="list-group-item">' + 'Description: ' + reports[i].weather[0].main + ' / ' + reports[i].weather[0].description + '</li>' +
                     '<li class="list-group-item">' + 'Humidity: ' + reports[i].main.humidity + '</li>' +
                     '<li class="list-group-item">' + 'Pressure: ' + reports[i].main.pressure + '</li>' +
-                    '<li class="list-group-item">' + '<img id="wxicon" src=" " alt="wx icon">' + '</li>' +
+                    '<li class="list-group-item">' + '<img src="http://openweathermap.org/img/w/' + icon + '.png"' + ' alt="img"' + '>' + '</li>' +
                     '</ul>' +
                     '</div>'
                 // console.log(reports[i]);
