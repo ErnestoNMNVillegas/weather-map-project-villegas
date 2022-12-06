@@ -125,9 +125,8 @@ $(function () {
 
     getFiveDay(29.4260, -98.4916);
 
-    //icon source https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
-    //date format source https://stackoverflow.com/questions/64373549/how-do-i-reformat-the-date-from-openweather-api-using-javascript
-    //5-day forecast function.  I used information from the following post to figure this out:  https://javascript.plainenglish.io/display-7-day-weather-forecast-with-openweather-api-aac8ba21c9e3
+
+////5-day forecast function.  I used information from the following post to figure this out:  https://javascript.plainenglish.io/display-7-day-weather-forecast-with-openweather-api-aac8ba21c9e3 ////
 
     function getFiveDay(lat, lng) {
         $.get("http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lng + "&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function (data) {
