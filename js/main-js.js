@@ -64,8 +64,8 @@ $(function () {
         return marker.setLngLat(e.result.center)
     });
 
-    //Click function code.
-    // I used the following source for assistance: https://stackoverflow.com/questions/44430030/mapbox-allow-user-to-click-on-map-and-pin
+//// Click function code ////
+//// I used the following source for assistance: https://stackoverflow.com/questions/44430030/mapbox-allow-user-to-click-on-map-and-pin
 
     map.on("click", function (e) {
         getFiveDay(e.lngLat.lat, e.lngLat.lng);
@@ -95,7 +95,8 @@ $(function () {
         );
     });
 
-    //// Open Weather Pollution Data - Current
+//// Open Weather Pollution Data - Current ////
+
     function airQuality (lat, lng){
         $.get("http://api.openweathermap.org/data/2.5/air_pollution?lat=" + lat + "&lon=" + lng + "&appid=" + OPEN_WEATHER_KEY + "&units=imperial").done(function (data) {
             var airQualreport = data.list;
@@ -115,10 +116,13 @@ $(function () {
         });
     }
 
+//// Calling function ////
+
     airQuality(29.4260, -98.4916);
 
 
 //// San Antonio 5 Day Forecast Code ////
+
     getFiveDay(29.4260, -98.4916);
 
     //icon source https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
